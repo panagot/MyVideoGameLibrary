@@ -91,53 +91,105 @@ function GameCard({ game, viewMode = 'grid', showActions = false, onToggleSale =
         {/* Detailed Information Panel */}
         {showDetails && isOwn && (
           <div className="game-details-panel">
+            <div className="details-header">
+              <span className="details-icon">📋</span>
+              <h4 className="details-title">Game Details</h4>
+            </div>
             <div className="details-grid">
               {game.hasOriginalBox !== undefined && (
-                <div className="detail-item">
-                  <span className="detail-label">📦 Original Box:</span>
-                  <span className="detail-value">{game.hasOriginalBox ? 'Yes' : 'No'}</span>
+                <div className={`detail-card ${game.hasOriginalBox ? 'detail-card-success' : ''}`}>
+                  <div className="detail-icon-wrapper">
+                    <span className="detail-icon-large">📦</span>
+                  </div>
+                  <div className="detail-content">
+                    <span className="detail-label">Original Box</span>
+                    <span className={`detail-value-badge ${game.hasOriginalBox ? 'badge-yes' : 'badge-no'}`}>
+                      {game.hasOriginalBox ? '✓ Yes' : '✗ No'}
+                    </span>
+                  </div>
                 </div>
               )}
               {game.hasManual !== undefined && (
-                <div className="detail-item">
-                  <span className="detail-label">📖 Manual:</span>
-                  <span className="detail-value">{game.hasManual ? 'Included' : 'Not Included'}</span>
+                <div className={`detail-card ${game.hasManual ? 'detail-card-success' : ''}`}>
+                  <div className="detail-icon-wrapper">
+                    <span className="detail-icon-large">📖</span>
+                  </div>
+                  <div className="detail-content">
+                    <span className="detail-label">Manual</span>
+                    <span className={`detail-value-badge ${game.hasManual ? 'badge-yes' : 'badge-no'}`}>
+                      {game.hasManual ? '✓ Included' : '✗ Not Included'}
+                    </span>
+                  </div>
                 </div>
               )}
               {game.edition && (
-                <div className="detail-item">
-                  <span className="detail-label">🏆 Edition:</span>
-                  <span className="detail-value">{game.edition}</span>
+                <div className="detail-card detail-card-info">
+                  <div className="detail-icon-wrapper">
+                    <span className="detail-icon-large">🏆</span>
+                  </div>
+                  <div className="detail-content">
+                    <span className="detail-label">Edition</span>
+                    <span className="detail-value-text">{game.edition}</span>
+                  </div>
                 </div>
               )}
               {game.format && (
-                <div className="detail-item">
-                  <span className="detail-label">💿 Format:</span>
-                  <span className="detail-value">{game.format}</span>
+                <div className="detail-card detail-card-info">
+                  <div className="detail-icon-wrapper">
+                    <span className="detail-icon-large">💿</span>
+                  </div>
+                  <div className="detail-content">
+                    <span className="detail-label">Format</span>
+                    <span className={`detail-value-badge ${game.format === 'Physical' ? 'badge-physical' : 'badge-digital'}`}>
+                      {game.format}
+                    </span>
+                  </div>
                 </div>
               )}
               {game.sealed !== undefined && (
-                <div className="detail-item">
-                  <span className="detail-label">🔒 Sealed:</span>
-                  <span className="detail-value">{game.sealed ? 'Yes' : 'No'}</span>
+                <div className={`detail-card ${game.sealed ? 'detail-card-premium' : ''}`}>
+                  <div className="detail-icon-wrapper">
+                    <span className="detail-icon-large">🔒</span>
+                  </div>
+                  <div className="detail-content">
+                    <span className="detail-label">Sealed</span>
+                    <span className={`detail-value-badge ${game.sealed ? 'badge-premium' : 'badge-no'}`}>
+                      {game.sealed ? '✓ Sealed' : '✗ Opened'}
+                    </span>
+                  </div>
                 </div>
               )}
               {game.purchaseDate && (
-                <div className="detail-item">
-                  <span className="detail-label">🛒 Purchase Date:</span>
-                  <span className="detail-value">{new Date(game.purchaseDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+                <div className="detail-card detail-card-date">
+                  <div className="detail-icon-wrapper">
+                    <span className="detail-icon-large">📅</span>
+                  </div>
+                  <div className="detail-content">
+                    <span className="detail-label">Purchase Date</span>
+                    <span className="detail-value-text">{new Date(game.purchaseDate).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}</span>
+                  </div>
                 </div>
               )}
               {game.purchasePrice !== undefined && (
-                <div className="detail-item">
-                  <span className="detail-label">💰 Purchase Price:</span>
-                  <span className="detail-value">${game.purchasePrice.toFixed(2)}</span>
+                <div className="detail-card detail-card-price">
+                  <div className="detail-icon-wrapper">
+                    <span className="detail-icon-large">💰</span>
+                  </div>
+                  <div className="detail-content">
+                    <span className="detail-label">Purchase Price</span>
+                    <span className="detail-value-price">${game.purchasePrice.toFixed(2)}</span>
+                  </div>
                 </div>
               )}
               {game.region && (
-                <div className="detail-item">
-                  <span className="detail-label">🌍 Region:</span>
-                  <span className="detail-value">{game.region}</span>
+                <div className="detail-card detail-card-info">
+                  <div className="detail-icon-wrapper">
+                    <span className="detail-icon-large">🌍</span>
+                  </div>
+                  <div className="detail-content">
+                    <span className="detail-label">Region</span>
+                    <span className="detail-value-text">{game.region}</span>
+                  </div>
                 </div>
               )}
             </div>
