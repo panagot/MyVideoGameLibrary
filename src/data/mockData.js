@@ -9,7 +9,16 @@ export const mockGames = [
     notes: 'Amazing open-world adventure',
     forSale: false,
     forTrade: false,
-    price: null
+    price: null,
+    // Detailed information
+    hasOriginalBox: true,
+    hasManual: true,
+    edition: 'Standard',
+    format: 'Physical',
+    sealed: false,
+    purchaseDate: '2017-03-15',
+    purchasePrice: 59.99,
+    region: 'NTSC-U'
   },
   {
     id: 2,
@@ -21,7 +30,15 @@ export const mockGames = [
     notes: 'From Software masterpiece',
     forSale: true,
     forTrade: false,
-    price: 45.99
+    price: 45.99,
+    hasOriginalBox: true,
+    hasManual: true,
+    edition: 'Standard',
+    format: 'Physical',
+    sealed: false,
+    purchaseDate: '2022-02-28',
+    purchasePrice: 59.99,
+    region: 'NTSC-U'
   },
   {
     id: 3,
@@ -33,7 +50,15 @@ export const mockGames = [
     notes: 'One of the best Mario games',
     forSale: false,
     forTrade: true,
-    price: null
+    price: null,
+    hasOriginalBox: true,
+    hasManual: true,
+    edition: 'Standard',
+    format: 'Physical',
+    sealed: false,
+    purchaseDate: '2017-11-01',
+    purchasePrice: 49.99,
+    region: 'NTSC-U'
   },
   {
     id: 4,
@@ -45,7 +70,15 @@ export const mockGames = [
     notes: '',
     forSale: false,
     forTrade: false,
-    price: null
+    price: null,
+    hasOriginalBox: true,
+    hasManual: true,
+    edition: 'Collector\'s Edition',
+    format: 'Physical',
+    sealed: false,
+    purchaseDate: '2022-11-10',
+    purchasePrice: 199.99,
+    region: 'NTSC-U'
   },
   {
     id: 5,
@@ -57,7 +90,15 @@ export const mockGames = [
     notes: 'Incredible roguelike',
     forSale: true,
     forTrade: true,
-    price: 25.99
+    price: 25.99,
+    hasOriginalBox: false,
+    hasManual: false,
+    edition: 'Standard',
+    format: 'Digital',
+    sealed: false,
+    purchaseDate: '2020-09-20',
+    purchasePrice: 24.99,
+    region: 'N/A'
   },
   {
     id: 6,
@@ -69,7 +110,15 @@ export const mockGames = [
     notes: '',
     forSale: false,
     forTrade: false,
-    price: null
+    price: null,
+    hasOriginalBox: true,
+    hasManual: false,
+    edition: 'Standard',
+    format: 'Physical',
+    sealed: false,
+    purchaseDate: '2022-02-20',
+    purchasePrice: 69.99,
+    region: 'NTSC-U'
   },
   {
     id: 7,
@@ -81,7 +130,15 @@ export const mockGames = [
     notes: 'Addictive farming sim',
     forSale: false,
     forTrade: true,
-    price: null
+    price: null,
+    hasOriginalBox: false,
+    hasManual: false,
+    edition: 'Standard',
+    format: 'Digital',
+    sealed: false,
+    purchaseDate: '2017-10-10',
+    purchasePrice: 14.99,
+    region: 'N/A'
   },
   {
     id: 8,
@@ -93,7 +150,15 @@ export const mockGames = [
     notes: '',
     forSale: true,
     forTrade: false,
-    price: 35.99
+    price: 35.99,
+    hasOriginalBox: true,
+    hasManual: true,
+    edition: 'Deluxe Edition',
+    format: 'Physical',
+    sealed: true,
+    purchaseDate: '2020-04-12',
+    purchasePrice: 79.99,
+    region: 'NTSC-U'
   }
 ]
 

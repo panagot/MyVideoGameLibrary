@@ -235,112 +235,116 @@ function MyCollection() {
             Export to Excel
           </button>
         </div>
-            <div className="collection-stats">
-              <div className="stat">
-                <span className="stat-number">{stats.totalGames}</span>
-                <span className="stat-label">Games</span>
+        <div className="collection-stats-container">
+          <div className="collection-stats">
+            <div className="stat">
+              <span className="stat-number">{stats.totalGames}</span>
+              <span className="stat-label">Games</span>
+            </div>
+            <div className="stat">
+              <span className="stat-number">{stats.totalConsoles}</span>
+              <span className="stat-label">Consoles</span>
+            </div>
+            <div className="stat">
+              <span className="stat-number">{stats.totalItems}</span>
+              <span className="stat-label">Total Items</span>
+            </div>
+            <div className="stat">
+              <span className="stat-number">{stats.uniqueConsoles}</span>
+              <span className="stat-label">Platforms</span>
+            </div>
+            {stats.gamesWithDuplicates > 0 && (
+              <div className="stat stat-collector">
+                <span className="stat-number">{stats.gamesWithDuplicates}</span>
+                <span className="stat-label">Multi-Platform</span>
               </div>
-              <div className="stat">
-                <span className="stat-number">{stats.totalConsoles}</span>
-                <span className="stat-label">Consoles</span>
+            )}
+            <div className="stat stat-value">
+              <span className="stat-number">${stats.estimatedValue.toFixed(2)}</span>
+              <span className="stat-label">Collection Value</span>
+            </div>
+          </div>
+          
+          {/* Filters and Controls - Integrated into header */}
+          <div className="collection-controls-inline">
+            <div className="collection-filters-row">
+              <div className="collection-filters">
+                <button 
+                  className={filter === 'all' ? 'filter-btn active' : 'filter-btn'}
+                  onClick={() => setFilter('all')}
+                >
+                  All Items ({stats.totalItems})
+                </button>
+                <button 
+                  className={filter === 'games' ? 'filter-btn active' : 'filter-btn'}
+                  onClick={() => setFilter('games')}
+                >
+                  Games ({stats.totalGames})
+                </button>
+                <button 
+                  className={filter === 'consoles' ? 'filter-btn active' : 'filter-btn'}
+                  onClick={() => setFilter('consoles')}
+                >
+                  Consoles ({stats.totalConsoles})
+                </button>
               </div>
-              <div className="stat">
-                <span className="stat-number">{stats.totalItems}</span>
-                <span className="stat-label">Total Items</span>
-              </div>
-              <div className="stat">
-                <span className="stat-number">{stats.uniqueConsoles}</span>
-                <span className="stat-label">Platforms</span>
-              </div>
-              {stats.gamesWithDuplicates > 0 && (
-                <div className="stat stat-collector">
-                  <span className="stat-number">{stats.gamesWithDuplicates}</span>
-                  <span className="stat-label">Multi-Platform</span>
+
+              {filter !== 'consoles' && (
+                <div className="game-filters">
+                  <select 
+                    className="filter-select"
+                    value={consoleFilter}
+                    onChange={(e) => setConsoleFilter(e.target.value)}
+                  >
+                    <option value="all">All Platforms</option>
+                    {allConsoles.map(console => (
+                      <option key={console} value={console}>{console}</option>
+                    ))}
+                  </select>
+                  <select 
+                    className="filter-select"
+                    value={conditionFilter}
+                    onChange={(e) => setConditionFilter(e.target.value)}
+                  >
+                    <option value="all">All Conditions</option>
+                    <option value="excellent">Excellent</option>
+                    <option value="very-good">Very Good</option>
+                    <option value="good">Good</option>
+                    <option value="fair">Fair</option>
+                    <option value="poor">Poor</option>
+                  </select>
                 </div>
               )}
-              <div className="stat stat-value">
-                <span className="stat-number">${stats.estimatedValue.toFixed(2)}</span>
-                <span className="stat-label">Collection Value</span>
+            </div>
+
+            <div className="collection-sort">
+              <select 
+                className="filter-select"
+                value={sortBy}
+                onChange={(e) => setSortBy(e.target.value)}
+              >
+                <option value="title">Sort by Title</option>
+                <option value="releaseDate">Sort by Release Date</option>
+                {filter !== 'consoles' && <option value="console">Sort by Platform</option>}
+                {filter !== 'consoles' && <option value="condition">Sort by Condition</option>}
+              </select>
+              <div className="view-toggle">
+                <button 
+                  className={`view-btn ${viewMode === 'grid' ? 'active' : ''}`}
+                  onClick={() => setViewMode('grid')}
+                  title="Grid View"
+                >
+                  ⬜
+                </button>
+                <button 
+                  className={`view-btn ${viewMode === 'list' ? 'active' : ''}`}
+                  onClick={() => setViewMode('list')}
+                  title="List View"
+                >
+                  ☰
+                </button>
               </div>
             </div>
-      </div>
-
-      {/* Filters and Controls - Moved to top for better access */}
-      <div className="collection-controls">
-        <div className="collection-filters">
-          <button 
-            className={filter === 'all' ? 'filter-btn active' : 'filter-btn'}
-            onClick={() => setFilter('all')}
-          >
-            All Items ({stats.totalItems})
-          </button>
-          <button 
-            className={filter === 'games' ? 'filter-btn active' : 'filter-btn'}
-            onClick={() => setFilter('games')}
-          >
-            Games ({stats.totalGames})
-          </button>
-          <button 
-            className={filter === 'consoles' ? 'filter-btn active' : 'filter-btn'}
-            onClick={() => setFilter('consoles')}
-          >
-            Consoles ({stats.totalConsoles})
-          </button>
-        </div>
-
-        {filter !== 'consoles' && (
-          <div className="game-filters">
-            <select 
-              className="filter-select"
-              value={consoleFilter}
-              onChange={(e) => setConsoleFilter(e.target.value)}
-            >
-              <option value="all">All Platforms</option>
-              {allConsoles.map(console => (
-                <option key={console} value={console}>{console}</option>
-              ))}
-            </select>
-            <select 
-              className="filter-select"
-              value={conditionFilter}
-              onChange={(e) => setConditionFilter(e.target.value)}
-            >
-              <option value="all">All Conditions</option>
-              <option value="excellent">Excellent</option>
-              <option value="very-good">Very Good</option>
-              <option value="good">Good</option>
-              <option value="fair">Fair</option>
-              <option value="poor">Poor</option>
-            </select>
-          </div>
-        )}
-
-        <div className="collection-sort">
-          <select 
-            className="filter-select"
-            value={sortBy}
-            onChange={(e) => setSortBy(e.target.value)}
-          >
-            <option value="title">Sort by Title</option>
-            <option value="releaseDate">Sort by Release Date</option>
-            {filter !== 'consoles' && <option value="console">Sort by Platform</option>}
-            {filter !== 'consoles' && <option value="condition">Sort by Condition</option>}
-          </select>
-          <div className="view-toggle">
-            <button 
-              className={`view-btn ${viewMode === 'grid' ? 'active' : ''}`}
-              onClick={() => setViewMode('grid')}
-              title="Grid View"
-            >
-              ⬜
-            </button>
-            <button 
-              className={`view-btn ${viewMode === 'list' ? 'active' : ''}`}
-              onClick={() => setViewMode('list')}
-              title="List View"
-            >
-              ☰
-            </button>
           </div>
         </div>
       </div>

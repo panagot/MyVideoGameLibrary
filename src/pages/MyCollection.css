@@ -110,12 +110,21 @@
   font-weight: 400;
 }
 
+.collection-stats-container {
+  grid-column: 1 / -1;
+  margin-top: 0.75rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
 .collection-stats {
   display: flex;
   gap: 0.5rem;
   flex-wrap: wrap;
-  grid-column: 1 / -1;
-  margin-top: 0.5rem;
+  flex: 1;
+  min-width: 300px;
 }
 
 .stat {
@@ -371,47 +380,42 @@
   font-weight: 500;
 }
 
-/* Collection Controls - Compact, sticky at top */
-.collection-controls {
-  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
-  padding: 1rem 1.25rem;
-  border-radius: 12px;
-  border: 1px solid #e2e8f0;
-  margin-bottom: 1.5rem;
-  box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  position: sticky;
-  top: 80px;
-  z-index: 10;
+/* Collection Controls - Inline within header */
+.collection-controls-inline {
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+  flex: 1;
+  min-width: 350px;
+  padding-left: 1rem;
+  border-left: 2px solid #e2e8f0;
 }
 
-.collection-controls::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent 0%, rgba(37, 99, 235, 0.2) 50%, transparent 100%);
+.collection-filters-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
 }
 
 .collection-filters {
   display: flex;
   gap: 0.5rem;
-  margin-bottom: 0.75rem;
   flex-wrap: wrap;
 }
 
 .filter-btn {
-  padding: 0.625rem 1.25rem;
+  padding: 0.5rem 0.875rem;
   background-color: #ffffff;
   color: #475569;
   border: 1.5px solid #e2e8f0;
-  border-radius: 8px;
+  border-radius: 6px;
   cursor: pointer;
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  font-size: 0.875rem;
+  font-size: 0.8125rem;
   font-family: inherit;
   font-weight: 500;
+  white-space: nowrap;
 }
 
 .filter-btn:hover {
@@ -430,21 +434,20 @@
 
 .game-filters {
   display: flex;
-  gap: 0.75rem;
-  margin-bottom: 0;
+  gap: 0.625rem;
   flex-wrap: wrap;
 }
 
 .filter-select {
-  padding: 0.625rem 0.875rem;
+  padding: 0.5rem 0.75rem;
   background-color: #ffffff;
   border: 1.5px solid #e2e8f0;
-  border-radius: 8px;
+  border-radius: 6px;
   color: #0f172a;
-  font-size: 0.875rem;
+  font-size: 0.8125rem;
   cursor: pointer;
   font-family: inherit;
-  min-width: 160px;
+  min-width: 140px;
   transition: all 0.2s ease;
 }
 
@@ -460,11 +463,9 @@
 
 .collection-sort {
   display: flex;
-  justify-content: flex-end;
   align-items: center;
-  gap: 0.75rem;
+  gap: 0.625rem;
   flex-wrap: wrap;
-  margin-top: 0.75rem;
 }
 
 .view-toggle {
@@ -622,4 +623,44 @@
   background-color: #f8fafc;
   border-radius: 12px;
   border: 1px dashed #cbd5e1;
+}
+
+/* Responsive styles */
+@media (max-width: 1024px) {
+  .collection-stats-container {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .collection-controls-inline {
+    min-width: 100%;
+    padding-left: 0;
+    padding-top: 0.75rem;
+    border-left: none;
+    border-top: 2px solid #e2e8f0;
+  }
+}
+
+@media (max-width: 768px) {
+  .collection-header {
+    padding: 1rem;
+  }
+
+  .collection-stats-container {
+    margin-top: 0.5rem;
+  }
+
+  .collection-controls-inline {
+    gap: 0.5rem;
+  }
+
+  .filter-select {
+    min-width: 120px;
+    font-size: 0.75rem;
+  }
+
+  .filter-btn {
+    padding: 0.4375rem 0.75rem;
+    font-size: 0.75rem;
+  }
 }

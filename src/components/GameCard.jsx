@@ -3,6 +3,7 @@ import './GameCard.css'
 
 function GameCard({ game, viewMode = 'grid', showActions = false, onToggleSale = null, onToggleTrade = null, isOwn = false }) {
   const [imageError, setImageError] = useState(false)
+  const [showDetails, setShowDetails] = useState(false)
 
   if (viewMode === 'list') {
     return (
@@ -76,6 +77,73 @@ function GameCard({ game, viewMode = 'grid', showActions = false, onToggleSale =
             {game.condition.replace('-', ' ')}
           </span>
         )}
+        
+        {/* View More Details Button */}
+        {isOwn && (
+          <button 
+            className="view-details-btn"
+            onClick={() => setShowDetails(!showDetails)}
+          >
+            {showDetails ? '▼ View Less' : '▶ View More'}
+          </button>
+        )}
+
+        {/* Detailed Information Panel */}
+        {showDetails && isOwn && (
+          <div className="game-details-panel">
+            <div className="details-grid">
+              {game.hasOriginalBox !== undefined && (
+                <div className="detail-item">
+                  <span className="detail-label">📦 Original Box:</span>
+                  <span className="detail-value">{game.hasOriginalBox ? 'Yes' : 'No'}</span>
+                </div>
+              )}
+              {game.hasManual !== undefined && (
+                <div className="detail-item">
+                  <span className="detail-label">📖 Manual:</span>
+                  <span className="detail-value">{game.hasManual ? 'Included' : 'Not Included'}</span>
+                </div>
+              )}
+              {game.edition && (
+                <div className="detail-item">
+                  <span className="detail-label">🏆 Edition:</span>
+                  <span className="detail-value">{game.edition}</span>
+                </div>
+              )}
+              {game.format && (
+                <div className="detail-item">
+                  <span className="detail-label">💿 Format:</span>
+                  <span className="detail-value">{game.format}</span>
+                </div>
+              )}
+              {game.sealed !== undefined && (
+                <div className="detail-item">
+                  <span className="detail-label">🔒 Sealed:</span>
+                  <span className="detail-value">{game.sealed ? 'Yes' : 'No'}</span>
+                </div>
+              )}
+              {game.purchaseDate && (
+                <div className="detail-item">
+                  <span className="detail-label">🛒 Purchase Date:</span>
+                  <span className="detail-value">{new Date(game.purchaseDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+                </div>
+              )}
+              {game.purchasePrice !== undefined && (
+                <div className="detail-item">
+                  <span className="detail-label">💰 Purchase Price:</span>
+                  <span className="detail-value">${game.purchasePrice.toFixed(2)}</span>
+                </div>
+              )}
+              {game.region && (
+                <div className="detail-item">
+                  <span className="detail-label">🌍 Region:</span>
+                  <span className="detail-value">{game.region}</span>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+
         {showActions && isOwn && (
           <div className="game-card-actions">
             <button 
