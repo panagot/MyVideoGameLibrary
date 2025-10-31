@@ -110,9 +110,10 @@ function Home() {
       {/* Hero Section with Featured Games */}
       <div className="hero">
         <div className="hero-content">
-          <h1>Welcome to GameLibrary</h1>
+          <h1>Welcome to VideoGameLibrary</h1>
           <p className="hero-subtitle">
-            Track your video game collection, discover new games, and connect with fellow collectors
+            The ultimate platform for video game collectors! Catalog your entire collection, connect with fellow enthusiasts, 
+            and turn your games into opportunities. List items for sale, mark them for trade, and build your perfect gaming library.
           </p>
           
           {/* Search Bar */}
@@ -169,11 +170,14 @@ function Home() {
           )}
 
           <div className="hero-actions">
-            <Link to="/collection" className="btn btn-primary">
-              View My Collection
+            <Link to="/add-game" className="btn btn-primary">
+              🎮 Start Your Collection
             </Link>
-            <Link to="/explore" className="btn btn-secondary">
-              Explore Collections
+            <Link to="/marketplace" className="btn btn-secondary">
+              🛒 Browse Marketplace
+            </Link>
+            <Link to="/explore" className="btn btn-outline">
+              👥 Explore Collectors
             </Link>
           </div>
         </div>
@@ -283,36 +287,115 @@ function Home() {
         </div>
       </div>
 
-      <div className="features">
-        <div className="feature-card">
-          <div className="feature-icon">📚</div>
-          <h3>Track Your Collection</h3>
-          <p>Keep an organized record of all your games and consoles in one place. Add details like condition, release date, and personal notes.</p>
-          <ul className="feature-list">
-            <li>Organize by platform</li>
-            <li>Track condition and value</li>
-            <li>Add personal notes</li>
-          </ul>
+      {/* How It Works Section */}
+      <div className="how-it-works-section">
+        <div className="section-header">
+          <h2>🎯 How It Works</h2>
+          <p className="section-subtitle">Three simple steps to get started with your collection</p>
         </div>
-        <div className="feature-card">
-          <div className="feature-icon">👥</div>
-          <h3>Visit Profiles</h3>
-          <p>Browse other collectors' libraries and see what they have. Discover new games and connect with like-minded enthusiasts.</p>
-          <ul className="feature-list">
-            <li>Explore collections</li>
-            <li>See detailed stats</li>
-            <li>Find rare items</li>
-          </ul>
+        <div className="steps-container">
+          <div className="step-card">
+            <div className="step-number">1</div>
+            <div className="step-icon">📝</div>
+            <h3>List Your Collection</h3>
+            <p>Start by adding your games and consoles. Our smart system fetches cover art automatically, and you can add detailed information like condition, edition, and purchase details.</p>
+            <Link to="/add-game" className="step-action-btn">
+              Add Your First Game →
+            </Link>
+          </div>
+          <div className="step-card step-featured">
+            <div className="step-badge">💰 Most Popular</div>
+            <div className="step-number">2</div>
+            <div className="step-icon">🏷️</div>
+            <h3>Mark for Sale or Trade</h3>
+            <p>Turn your collection into opportunities! Simply mark items as "For Sale" or "For Trade" directly from your collection. Set prices, and watch buyers and traders find you.</p>
+            <Link to="/collection" className="step-action-btn">
+              Manage Your Items →
+            </Link>
+          </div>
+          <div className="step-card">
+            <div className="step-number">3</div>
+            <div className="step-icon">🤝</div>
+            <h3>Connect & Trade</h3>
+            <p>Browse the marketplace, explore other collectors' profiles, and discover rare finds. Connect with like-minded enthusiasts and build your gaming community.</p>
+            <Link to="/marketplace" className="step-action-btn">
+              Visit Marketplace →
+            </Link>
+          </div>
         </div>
-        <div className="feature-card">
-          <div className="feature-icon">💝</div>
-          <h3>Like & Trade</h3>
-          <p>Show appreciation for great collections and connect with others for trading opportunities. Build your community.</p>
-          <ul className="feature-list">
-            <li>Like profiles</li>
-            <li>Request trades</li>
-            <li>Connect safely</li>
-          </ul>
+      </div>
+
+      {/* Why VideoGameLibrary Section */}
+      <div className="why-section">
+        <div className="section-header">
+          <h2>✨ Why VideoGameLibrary?</h2>
+          <p className="section-subtitle">Everything you need to manage and monetize your collection</p>
+        </div>
+        <div className="features">
+          <div className="feature-card">
+            <div className="feature-icon">📚</div>
+            <h3>Complete Collection Tracking</h3>
+            <p>Keep an organized record of all your games and consoles in one place. Add detailed information like condition, original box, manual, edition type, and more.</p>
+            <ul className="feature-list">
+              <li>✓ Auto-fetch game covers from Twitch API</li>
+              <li>✓ Track condition and collection value</li>
+              <li>✓ Export to Excel for backup</li>
+              <li>✓ Support multiple platforms per game</li>
+            </ul>
+          </div>
+          <div className="feature-card feature-highlight">
+            <div className="feature-badge">💎 Premium</div>
+            <div className="feature-icon">💰</div>
+            <h3>Sell & Trade Your Games</h3>
+            <p>Turn your collection into cash or trade for items you want! Mark games and consoles for sale with your price, or list them for trade to find the perfect swap.</p>
+            <ul className="feature-list">
+              <li>✓ One-click sale/trade marking</li>
+              <li>✓ Set your own prices</li>
+              <li>✓ Browse active marketplace</li>
+              <li>✓ Connect with buyers and traders</li>
+            </ul>
+          </div>
+          <div className="feature-card">
+            <div className="feature-icon">👥</div>
+            <h3>Discover & Connect</h3>
+            <p>Explore other collectors' libraries, discover rare games, and connect with fellow enthusiasts. See what's trending and find your next favorite game.</p>
+            <ul className="feature-list">
+              <li>✓ Browse collector profiles</li>
+              <li>✓ View detailed collection stats</li>
+              <li>✓ Like and follow collectors</li>
+              <li>✓ See trending games</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      {/* Call to Action Section */}
+      <div className="cta-section">
+        <div className="cta-content">
+          <h2>Ready to Build Your Collection?</h2>
+          <p>Join thousands of collectors who are organizing, sharing, and trading their games</p>
+          <div className="cta-actions">
+            <Link to="/add-game" className="btn btn-primary btn-large">
+              🎮 Start Adding Games
+            </Link>
+            <Link to="/marketplace" className="btn btn-secondary btn-large">
+              🛒 Explore Marketplace
+            </Link>
+          </div>
+          <div className="cta-stats">
+            <div className="cta-stat">
+              <span className="cta-stat-number">{totalUsers}+</span>
+              <span className="cta-stat-label">Active Collectors</span>
+            </div>
+            <div className="cta-stat">
+              <span className="cta-stat-number">{totalGamesInPlatform}+</span>
+              <span className="cta-stat-label">Games Listed</span>
+            </div>
+            <div className="cta-stat">
+              <span className="cta-stat-number">24/7</span>
+              <span className="cta-stat-label">Trading Activity</span>
+            </div>
+          </div>
         </div>
       </div>
 
