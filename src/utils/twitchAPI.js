@@ -26,7 +26,9 @@ async function getAppAccessToken() {
     const clientSecret = import.meta.env.VITE_TWITCH_CLIENT_SECRET
 
     if (!clientSecret) {
-      console.warn('Twitch Client Secret not found. API calls may be limited.')
+      console.error('❌ Twitch Client Secret not found!')
+      console.error('📝 Please add VITE_TWITCH_CLIENT_SECRET to your Vercel environment variables.')
+      console.error('🔗 Go to: Vercel Dashboard > Your Project > Settings > Environment Variables')
       return null
     }
 

@@ -48,6 +48,11 @@ function Home() {
         setLoadingGames(true)
         const games = await getPopularGames(20)
         
+        if (!games || games.length === 0) {
+          console.warn('⚠️ No games fetched. Check if Twitch API credentials are set in Vercel.')
+          console.warn('📝 Add VITE_TWITCH_CLIENT_ID and VITE_TWITCH_CLIENT_SECRET in Vercel environment variables.')
+        }
+        
         // Transform games for display
         const transformedGames = games.map(game => ({
           id: game.id,
@@ -59,7 +64,8 @@ function Home() {
         setPopularGames(transformedGames.slice(0, 12))
         setFeaturedGames(transformedGames.slice(0, 6)) // Top 6 for featured
       } catch (error) {
-        console.error('Error fetching popular games:', error)
+        console.error('❌ Error fetching popular games:', error)
+        console.error('📝 Make sure VITE_TWITCH_CLIENT_ID and VITE_TWITCH_CLIENT_SECRET are set in Vercel.')
       } finally {
         setLoadingGames(false)
       }
