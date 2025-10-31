@@ -152,19 +152,6 @@ function Explore() {
             </select>
           </div>
           <div className="filter-group">
-            <label className="filter-label">Sort By</label>
-            <select 
-              className="filter-select"
-              value={filterType}
-              onChange={(e) => setFilterType(e.target.value)}
-            >
-              <option value="all">All Collections</option>
-              <option value="popular">Most Popular (Likes)</option>
-              <option value="large">Largest Collections</option>
-              <option value="newest">Newest Members</option>
-            </select>
-          </div>
-          <div className="filter-group">
             <label className="filter-label">Availability</label>
             <select 
               className="filter-select"

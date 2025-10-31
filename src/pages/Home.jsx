@@ -369,6 +369,55 @@ function Home() {
         </div>
       </div>
 
+      {/* Testimonials Section */}
+      <div className="testimonials-section">
+        <div className="section-header">
+          <h2>💬 What Collectors Say</h2>
+          <p className="section-subtitle">Real experiences from our community</p>
+        </div>
+        <div className="testimonials-grid">
+          <div className="testimonial-card">
+            <div className="testimonial-quote">"</div>
+            <p className="testimonial-text">
+              VideoGameLibrary transformed how I manage my collection. I've sold over 20 games and made some amazing trades with fellow collectors!
+            </p>
+            <div className="testimonial-author">
+              <div className="testimonial-avatar">🍄</div>
+              <div>
+                <div className="testimonial-name">GameMaster89</div>
+                <div className="testimonial-role">Power Collector</div>
+              </div>
+            </div>
+          </div>
+          <div className="testimonial-card">
+            <div className="testimonial-quote">"</div>
+            <p className="testimonial-text">
+              The detailed tracking features are incredible! I love being able to see my collection value and all the extra details for each game.
+            </p>
+            <div className="testimonial-author">
+              <div className="testimonial-avatar">🦍</div>
+              <div>
+                <div className="testimonial-name">RetroGamer</div>
+                <div className="testimonial-role">Vintage Collector</div>
+              </div>
+            </div>
+          </div>
+          <div className="testimonial-card">
+            <div className="testimonial-quote">"</div>
+            <p className="testimonial-text">
+              Found rare PlayStation titles I've been hunting for years. The marketplace makes it so easy to connect with serious collectors!
+            </p>
+            <div className="testimonial-author">
+              <div className="testimonial-avatar">⚔️</div>
+              <div>
+                <div className="testimonial-name">PlayStationFan</div>
+                <div className="testimonial-role">Platform Enthusiast</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* Call to Action Section */}
       <div className="cta-section">
         <div className="cta-content">
