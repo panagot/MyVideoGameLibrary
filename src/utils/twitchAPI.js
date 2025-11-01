@@ -14,7 +14,7 @@ let tokenExpiry = null
  * NOTE: This requires a backend proxy in production!
  * The Client Secret should NEVER be exposed in frontend code
  */
-async function getAppAccessToken() {
+export async function getAppAccessToken() {
   // Check if we have a valid cached token
   if (cachedToken && tokenExpiry && Date.now() < tokenExpiry) {
     return cachedToken

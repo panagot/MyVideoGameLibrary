@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { mockUsers, currentUserId, userPreferences } from '../data/mockData'
 import GameCard from '../components/GameCard'
 import ConsoleCard from '../components/ConsoleCard'
+import CustomCollections from '../components/CustomCollections'
 import { exportCollectionToExcel } from '../utils/exportToExcel'
 import { getGameImageByName } from '../utils/twitchAPI'
 import './MyCollection.css'
@@ -17,6 +18,9 @@ function MyCollection() {
   const [conditionFilter, setConditionFilter] = useState('all')
   const [viewMode, setViewMode] = useState('grid') // 'grid' or 'list'
   const [imageLoading, setImageLoading] = useState({})
+  const [selectedCollection, setSelectedCollection] = useState('all')
+  const [selectedTags, setSelectedTags] = useState([])
+  const [tagFilterMode, setTagFilterMode] = useState('any') // 'any' or 'all'
 
   // Auto-fetch images from Twitch API for games without cover art (only on initial load)
   useEffect(() => {
@@ -118,9 +122,39 @@ function MyCollection() {
         }
       }, [games, consoles])
 
+  // Get all unique tags from games
+  const allTags = useMemo(() => {
+    const tagSet = new Set()
+    games.forEach(game => {
+      if (game.tags && Array.isArray(game.tags)) {
+        game.tags.forEach(tag => tagSet.add(tag))
+      }
+    })
+    return Array.from(tagSet).sort()
+  }, [games])
+
   // Filter and sort games
   const filteredGames = useMemo(() => {
     let filtered = [...games]
+
+    // Filter by custom collection
+    if (selectedCollection !== 'all') {
+      filtered = filtered.filter(g => g.collectionId === selectedCollection)
+    }
+
+    // Filter by tags
+    if (selectedTags.length > 0) {
+      filtered = filtered.filter(g => {
+        if (!g.tags || !Array.isArray(g.tags)) return false
+        if (tagFilterMode === 'all') {
+          // Game must have ALL selected tags
+          return selectedTags.every(tag => g.tags.includes(tag))
+        } else {
+          // Game must have ANY selected tag
+          return selectedTags.some(tag => g.tags.includes(tag))
+        }
+      })
+    }
 
     // Filter by console
     if (consoleFilter !== 'all') {
@@ -144,13 +178,17 @@ function MyCollection() {
         case 'condition':
           const order = { excellent: 5, 'very-good': 4, good: 3, fair: 2, poor: 1 }
           return (order[b.condition] || 0) - (order[a.condition] || 0)
+        case 'rating':
+          return (b.rating || 0) - (a.rating || 0)
+        case 'playtime':
+          return (b.playtime || 0) - (a.playtime || 0)
         default:
           return 0
       }
     })
 
     return filtered
-  }, [games, consoleFilter, conditionFilter, sortBy])
+  }, [games, selectedCollection, selectedTags, tagFilterMode, consoleFilter, conditionFilter, sortBy])
 
   const filteredConsoles = useMemo(() => {
     let filtered = [...consoles]
@@ -289,33 +327,43 @@ function MyCollection() {
                 </button>
               </div>
 
-              {filter !== 'consoles' && (
-                <div className="game-filters">
-                  <select 
-                    className="filter-select"
-                    value={consoleFilter}
-                    onChange={(e) => setConsoleFilter(e.target.value)}
-                  >
-                    <option value="all">All Platforms</option>
-                    {allConsoles.map(console => (
-                      <option key={console} value={console}>{console}</option>
-                    ))}
-                  </select>
-                  <select 
-                    className="filter-select"
-                    value={conditionFilter}
-                    onChange={(e) => setConditionFilter(e.target.value)}
-                  >
-                    <option value="all">All Conditions</option>
-                    <option value="excellent">Excellent</option>
-                    <option value="very-good">Very Good</option>
-                    <option value="good">Good</option>
-                    <option value="fair">Fair</option>
-                    <option value="poor">Poor</option>
-                  </select>
+                  {filter !== 'consoles' && (
+                    <div className="game-filters">
+                      <select 
+                        className="filter-select"
+                        value={selectedCollection}
+                        onChange={(e) => setSelectedCollection(e.target.value)}
+                      >
+                        <option value="all">All Collections</option>
+                        {userPreferences[currentUserId]?.customCollections?.map(collection => (
+                          <option key={collection.id} value={collection.id}>{collection.name}</option>
+                        ))}
+                      </select>
+                      <select 
+                        className="filter-select"
+                        value={consoleFilter}
+                        onChange={(e) => setConsoleFilter(e.target.value)}
+                      >
+                        <option value="all">All Platforms</option>
+                        {allConsoles.map(console => (
+                          <option key={console} value={console}>{console}</option>
+                        ))}
+                      </select>
+                      <select 
+                        className="filter-select"
+                        value={conditionFilter}
+                        onChange={(e) => setConditionFilter(e.target.value)}
+                      >
+                        <option value="all">All Conditions</option>
+                        <option value="excellent">Excellent</option>
+                        <option value="very-good">Very Good</option>
+                        <option value="good">Good</option>
+                        <option value="fair">Fair</option>
+                        <option value="poor">Poor</option>
+                      </select>
+                    </div>
+                  )}
                 </div>
-              )}
-            </div>
 
             <div className="collection-sort">
               <select 
@@ -327,6 +375,8 @@ function MyCollection() {
                 <option value="releaseDate">Sort by Release Date</option>
                 {filter !== 'consoles' && <option value="console">Sort by Platform</option>}
                 {filter !== 'consoles' && <option value="condition">Sort by Condition</option>}
+                {filter !== 'consoles' && <option value="rating">Sort by Rating</option>}
+                {filter !== 'consoles' && <option value="playtime">Sort by Playtime</option>}
               </select>
               <div className="view-toggle">
                 <button 
@@ -349,8 +399,8 @@ function MyCollection() {
         </div>
       </div>
 
-      <div className="collection-content">
-        {games.length === 0 && consoles.length === 0 ? (
+          <div className="collection-content">
+            {games.length === 0 && consoles.length === 0 ? (
           <div className="empty-state">
             <div className="empty-icon">📦</div>
             <h2>Your collection is empty</h2>
@@ -365,11 +415,72 @@ function MyCollection() {
             {(filter === 'all' || filter === 'games') && (
               <section className="collection-section">
                 <div className="collection-section-header">
-                  <div className="section-header">
-                    <h2>🎮 Games Collection</h2>
-                    <span className="section-count">{filteredGames.length} {filteredGames.length === 1 ? 'game' : 'games'}</span>
+                  {/* Title Section - Centered at top */}
+                  <div className="section-title-centered">
+                    <span className="section-icon">🎮</span>
+                    <h2>Games Collection</h2>
+                  </div>
+                  
+                  {/* Filter Row - Below title */}
+                  <div className="section-filter-row">
+                    {/* Centered Game Count */}
+                    <div className="section-count-badge section-count-centered">
+                      <span className="count-number">{filteredGames.length}</span>
+                      <span className="count-label">{filteredGames.length === 1 ? 'game' : 'games'}</span>
+                    </div>
+                    
+                    {/* Tags Filter Section - Redesigned */}
+                    {allTags.length > 0 && (
+                      <div className="tags-filter-redesigned">
+                        <div className="tag-filter-wrapper">
+                          <span className="filter-icon">🏷️</span>
+                          <input
+                            type="text"
+                            className="tag-input-redesigned"
+                            placeholder="Search by tags..."
+                            value={selectedTags.join(', ')}
+                            onChange={(e) => {
+                              const inputValue = e.target.value.trim()
+                              if (inputValue === '') {
+                                setSelectedTags([])
+                              } else {
+                                // Split by comma and clean up
+                                const tags = inputValue
+                                  .split(',')
+                                  .map(t => t.trim().toLowerCase())
+                                  .filter(t => t.length > 0)
+                                setSelectedTags([...new Set(tags)]) // Remove duplicates
+                              }
+                            }}
+                            onKeyDown={(e) => {
+                              if (e.key === 'Enter') {
+                                e.preventDefault()
+                              }
+                            }}
+                          />
+                          {selectedTags.length > 0 && (
+                            <button
+                              className="tag-clear-btn"
+                              onClick={() => setSelectedTags([])}
+                              title="Clear filters"
+                            >
+                              ×
+                            </button>
+                          )}
+                        </div>
+                        <select
+                          className="tag-filter-mode-redesigned"
+                          value={tagFilterMode}
+                          onChange={(e) => setTagFilterMode(e.target.value)}
+                        >
+                          <option value="any">Any tag</option>
+                          <option value="all">All tags</option>
+                        </select>
+                      </div>
+                    )}
                   </div>
                 </div>
+
                 {filteredGames.length === 0 ? (
                   <div className="collection-section-content">
                     <p className="empty-message">No games match your filters. Try adjusting them!</p>
@@ -494,6 +605,12 @@ function MyCollection() {
           </div>
         </div>
       )}
+
+      {/* Custom Collections Section */}
+      <CustomCollections
+        games={games}
+        onCollectionChange={setSelectedCollection}
+      />
     </div>
   )
 }

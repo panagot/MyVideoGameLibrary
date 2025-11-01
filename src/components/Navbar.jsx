@@ -47,6 +47,12 @@ function Navbar() {
         >
           <span>⭐</span> Wishlist
         </Link>
+        <Link 
+          to="/analytics" 
+          className={location.pathname === '/analytics' ? 'active' : ''}
+        >
+          <span>📊</span> Analytics
+        </Link>
         <div className="navbar-dropdown">
           <button className="navbar-dropdown-btn">
             <span>➕</span> Add Item

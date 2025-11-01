@@ -226,8 +226,8 @@ function Marketplace() {
         ) : (
           <>
             <div className="marketplace-grid">
-              {filteredItems.map((item) => (
-                <div key={`${item.itemType}-${item.id}`} className="marketplace-item-wrapper">
+              {filteredItems.map((item, index) => (
+                <div key={`${item.itemType}-${item.id}-${item.owner?.id || 'unknown'}-${index}`} className="marketplace-item-wrapper">
                   <div className="marketplace-item-header">
                     <Link 
                       to={`/profile/${item.owner.id}`}

@@ -7,6 +7,7 @@ import Explore from './pages/Explore'
 import Marketplace from './pages/Marketplace'
 import Activity from './pages/Activity'
 import Wishlist from './pages/Wishlist'
+import Analytics from './pages/Analytics'
 import AddGame from './pages/AddGame'
 import AddConsole from './pages/AddConsole'
 import './App.css'
@@ -25,6 +26,7 @@ function App() {
             <Route path="/marketplace" element={<Marketplace />} />
             <Route path="/activity" element={<Activity />} />
             <Route path="/wishlist" element={<Wishlist />} />
+            <Route path="/analytics" element={<Analytics />} />
             <Route path="/add-game" element={<AddGame />} />
             <Route path="/add-console" element={<AddConsole />} />
           </Routes>

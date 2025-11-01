@@ -18,7 +18,19 @@ export const mockGames = [
     sealed: false,
     purchaseDate: '2017-03-15',
     purchasePrice: 59.99,
-    region: 'NTSC-U'
+    region: 'NTSC-U',
+    // Enhanced fields
+    publisher: 'Nintendo',
+    developer: 'Nintendo EPD',
+    genre: ['Action', 'Adventure', 'RPG'],
+    tags: ['open-world', 'zelda', 'nintendo', 'switch-exclusive'],
+    photos: ['https://images.igdb.com/igdb/image/upload/t_cover_big/co1wyy.png'],
+    collectionId: 'all', // Default collection
+    rating: 10,
+    completionStatus: 'completed',
+    playtime: 120,
+    barcode: '045496901501',
+    favorite: true
   },
   {
     id: 2,
@@ -38,7 +50,18 @@ export const mockGames = [
     sealed: false,
     purchaseDate: '2022-02-28',
     purchasePrice: 59.99,
-    region: 'NTSC-U'
+    region: 'NTSC-U',
+    publisher: 'Bandai Namco Entertainment',
+    developer: 'FromSoftware',
+    genre: ['Action RPG', 'Souls-like', 'Open World'],
+    tags: ['souls-like', 'fromsoftware', 'difficult', 'rpg'],
+    photos: ['https://images.igdb.com/igdb/image/upload/t_cover_big/co4j80.png'],
+    collectionId: 'all',
+    rating: 9,
+    completionStatus: 'in-progress',
+    playtime: 85,
+    barcode: '022409339683',
+    favorite: true
   },
   {
     id: 3,
@@ -266,7 +289,14 @@ export const userPreferences = {
     following: ['user2', 'user5'],
     followers: ['user3', 'user4'],
     collectionValue: 2450.99, // Estimated value in USD
-    personalQuote: '🎮 Welcome to my collection! I\'m a passionate collector who loves both retro and modern games. Feel free to browse, tag, and comment on anything you like! Every game tells a story. 🎯'
+    personalQuote: '🎮 Welcome to my collection! I\'m a passionate collector who loves both retro and modern games. Feel free to browse, tag, and comment on anything you like! Every game tells a story. 🎯',
+    customCollections: [
+      { id: 'favorites', name: '⭐ Favorites', description: 'My favorite games', icon: '⭐', color: '#fbbf24' },
+      { id: 'completed', name: '✅ Completed', description: 'Games I\'ve finished', icon: '✅', color: '#10b981' },
+      { id: 'retro', name: '🎮 Retro', description: 'Classic and retro games', icon: '🎮', color: '#8b5cf6' },
+      { id: 'rare', name: '💎 Rare', description: 'Rare and collectible items', icon: '💎', color: '#ec4899' }
+    ],
+    allTags: ['open-world', 'zelda', 'nintendo', 'switch-exclusive', 'souls-like', 'fromsoftware', 'difficult', 'rpg', 'mario', 'action', 'adventure']
   },
   'user2': {
     wishlist: [],
